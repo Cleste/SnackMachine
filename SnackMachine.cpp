@@ -22,14 +22,11 @@ int main() {
     int budget, k = 0, what, l;
     int who;
     snack item;
-    cout << "Кто вы?" << endl << "1.Покупатель" << endl << "2.Админушка" << endl;
-    cin >> who;
+    cout << "Вставте купюру:" << endl;
+    cin >> budget;
     system("cls");
-    if (who == 1) {
-        cout << "Вставте купюру:" << endl;
-        cin >> budget;
-        system("cls");
-        while(true) {
+    if (budget > 0) {
+        while (true) {
             cout << "Что вы желаете?" << endl;
             cout << "Напитки" << endl << "Еда" << endl;
             if (cin >> filePath != "Напитки" && filePath != "Еда") {
@@ -50,7 +47,7 @@ int main() {
             }
             cout << "Ваш бюджет:" << budget << endl;
             cin >> what;
-            if (what > a.size()+1) {
+            if (what > a.size() + 1) {
                 cout << "Неверный id" << endl;
                 continue;
             }
@@ -78,11 +75,11 @@ int main() {
             }
         }
     }
-    if (who == 2)
+    else
     {
-        fin.open("/home/kirill/password.txt");
-        string password, tryAdmin;
-        fin >> password;
+        fin.open("/home/kirill/CLionProjects/SnackMachine/password.txt");
+        string pass, password;
+        fin >> pass;
         for (int i = 3;i >= -1;i--)
         {
             if (i == -1)
@@ -93,8 +90,8 @@ int main() {
                 return 0;
             }
             cout << "Введите пароль : " << endl;
-            cin >> tryAdmin;
-            if(tryAdmin == password) break;
+            cin >> password;
+            if(password == pass) break;
             else if(i > 0)
             {
                 cout << "Неверный пароль. У вас отсалось " << i << " Попыток" << endl;
@@ -102,46 +99,75 @@ int main() {
 
         }
         fin.close();
-        while(true) {
-            cout << "Что вы желаете изменить?" << endl;
-            cout << "Напитки" << endl << "Еда" << endl;
-            if (cin >> filePath != "Напитки" && filePath != "Еда") {
-                cout << filePath << " нет в списке. Попробуйте еще раз." << endl;
-            } else break;
-        }
-        want = "/home/kirill/CLionProjects/SnackMachine/" + filePath + ".txt";
-        fin.open(want);
-        while (!fin.eof()) {
-            fin >> item.id >> item.product >> item.price;
-            a.push_back(item);
-            k++;
-        }
-        fin.close();
-        fout.open(want);
-        while (true) {
-            system("cls");
-            for (int i = 0; i < a.size(); i++) {
-                cout << a[i].id << " " << a[i].product << " " << a[i].price << endl;
+        string command;
+        cout << "Введите команду : " << endl;
+        cin >> command;
+        if(command == "menu") {
+            while (true) {
+                cout << "Что вы желаете изменить?" << endl;
+                cout << "Напитки" << endl << "Еда" << endl;
+                if (cin >> filePath != "Напитки" && filePath != "Еда") {
+                    cout << filePath << " нет в списке. Попробуйте еще раз." << endl;
+                } else break;
             }
-            cout << "Введите id продукта, который хотите изменить, или 0 для завершения изменеия прайс-листа:" << endl;
-            cin >> l;
-            if (l == 0) {
+            want = "/home/kirill/CLionProjects/SnackMachine/" + filePath + ".txt";
+            fin.open(want);
+            while (!fin.eof()) {
+                fin >> item.id >> item.product >> item.price;
+                a.push_back(item);
+                k++;
+            }
+            fin.close();
+            fout.open(want);
+            while (true) {
+                system("cls");
                 for (int i = 0; i < a.size(); i++) {
-                    if(i < a.size() - 1)
-                        fout << a[i].id << " " << a[i].product << " " << a[i].price << " " << endl;
-                    else
-                        fout << a[i].id << " " << a[i].product << " " << a[i].price;
+                    cout << a[i].id << " " << a[i].product << " " << a[i].price << endl;
                 }
-                return 0;
-            }
-            for (int i = 0; i < a.size(); i++) {
-                if (a[i].id == l) {
-                    cout << "Введите назание продукта: " << endl;
-                    cin >> a[i].product;
-                    cout << "Введите цену продукта: " << endl;
-                    cin >> a[i].price;
+                cout << "Введите id продукта, который хотите изменить, или 0 для завершения изменеия прайс-листа:"
+                     << endl;
+                cin >> l;
+                if (l == 0) {
+                    for (int i = 0; i < a.size(); i++) {
+                        if (i < a.size() - 1)
+                            fout << a[i].id << " " << a[i].product << " " << a[i].price << " " << endl;
+                        else
+                            fout << a[i].id << " " << a[i].product << " " << a[i].price;
+                    }
+                    return 0;
+                }
+                for (int i = 0; i < a.size(); i++) {
+                    if (a[i].id == l) {
+                        cout << "Введите назание продукта: " << endl;
+                        cin >> a[i].product;
+                        cout << "Введите цену продукта: " << endl;
+                        cin >> a[i].price;
+                    }
                 }
             }
+        } else {
+            for (int i = 3;i >= -1;i--)
+            {
+                if (i == -1)
+                {
+                    cout << "Неверный пароль."<< endl;
+                    cout << "Лимит ввода пароля превышен - самоуничтожение программы." << endl;
+                    cin.get();
+                    return 0;
+                }
+                cout << "Введите пароль : " << endl;
+                cin >> password;
+                if(password == pass) break;
+                else if(i > 0)
+                {
+                    cout << "Неверный пароль. У вас отсалось " << i << " Попыток" << endl;
+                }
+
+            }
+            cout << "Введите новый пароль :" << endl;
+            cin >> password;
+            fout.open("/home/kirill/CLionProjects/SnackMachine/password.txt");
+            fout << password;
         }
     }
     return 0;
