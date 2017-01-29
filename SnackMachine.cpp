@@ -7,7 +7,8 @@
 using namespace std;
 struct snack
 {
-    int id, price;
+    int price;
+    unsigned long id;
     string product;
 };
 string filePath, want;
@@ -112,7 +113,7 @@ int main() {
 
         }
         fin.close();
-        string command;
+        string command, command1;
         while (command != "0") {
             system("clear");
             cout << "Введите команду. Введите 0 для завершения программы." << endl;
@@ -121,12 +122,11 @@ int main() {
                 while (true) {
                     while (true) {
                         system("clear");
-                        a.clear();
                         cout << "Какое меню вы хотите поменять? Введите 0 для возврата к вводу команд." << endl;
                         cout << "1.Напитки" << endl << "2.Еда" << endl;
                         cin >> filePath;
                         if (filePath != "1" && filePath != "2" && filePath != "0") {
-                            cout << "Ах ты хитрец." << filePath << " нет в списке. Попробуйте еще раз." << endl;
+                            cout << "Ах ты хитрец." << filePath << " нет в списке. Попробуй еще раз." << endl;
                         } else break;
                     }
                     if (filePath == "1")
@@ -134,34 +134,73 @@ int main() {
                      else if (filePath == "2")
                         want = "/home/kirill/CLionProjects/SnackMachine/Еда.txt";
                     else break;
-                    fin.open(want);
-                    while (!fin.eof()) {
-                        fin >> item.id >> item.product >> item.price;
-                        a.push_back(item);
-                        k++;
-                    }
-                    fin.close();
                     while (true) {
-                        for (int i = 0; i < a.size(); i++) {
-                            cout << a[i].id << " " << a[i].product << " " << a[i].price << endl;
-                        }
-                        cout << "Введите id продукта, который хотите изменить, или 0 для возврата к выбору меню" << endl;
-                        cin >> l;
-                        if (l == 0) {
-                            fout.open(want);
-                            for (int i = 0; i < a.size(); i++) {
-                                if (i < a.size() - 1)
-                                    fout << a[i].id << " " << a[i].product << " " << a[i].price << " " << endl;
-                                else
-                                    fout << a[i].id << " " << a[i].product << " " << a[i].price;
+                        cout << "Что вы хотите сделать? Введите 0 для возврата к выбору меню." << endl;
+                        cout << "1.Поменять товар" << endl << "2.Добавить товар" << endl;
+                        cin >> command1;
+                        if (command1 == "1") {
+                            while (true) {
+                                a.clear();
+                                fin.open(want);
+                                while (!fin.eof()) {
+                                    fin >> item.id >> item.product >> item.price;
+                                    a.push_back(item);
+                                    k++;
+                                }
+                                fin.close();
+                                for (int i = 0; i < a.size(); i++) {
+                                    cout << a[i].id << " " << a[i].product << " " << a[i].price << endl;
+                                }
+                                cout << "Введите id продукта, который хотите изменить, или 0 для возврата к выбору меню"
+                                     << endl;
+                                cin >> l;
+                                if (l == 0) {
+                                    fout.open(want);
+                                    for (int i = 0; i < a.size(); i++) {
+                                        if (i < a.size() - 1)
+                                            fout << a[i].id << " " << a[i].product << " " << a[i].price << " " << endl;
+                                        else
+                                            fout << a[i].id << " " << a[i].product << " " << a[i].price;
+                                    }
+                                    fout.close();
+                                    break;
+                                }
+                                cout << "Введите назание продукта: " << endl;
+                                cin >> a[l - 1].product;
+                                cout << "Введите цену продукта: " << endl;
+                                cin >> a[l - 1].price;
                             }
-                            fout.close();
-                            break;
-                        }
-                        cout << "Введите назание продукта: " << endl;
-                        cin >> a[l-1].product;
-                        cout << "Введите цену продукта: " << endl;
-                        cin >> a[l-1].price;
+                        } else if (command1 == "2"){
+                            while (true){
+                                fin.open(want);
+                                while (!fin.eof()) {
+                                    fin >> item.id >> item.product >> item.price;
+                                    a.push_back(item);
+                                    k++;
+                                }
+                                fin.close();
+                                string name;
+                                int price;
+                                cout << "Введите имя нового товара. Введите 0 для завершения изменений." << endl;
+                                cin >> name;
+                                if (name == "0") break;
+                                cout << "Введите цену нового товара" << endl;
+                                cin >> price;
+                                item.id = a.size() + 2;
+                                item.price = price;
+                                item.product = name;
+                                a.push_back(item);
+                                fout.open(want);
+                                for (int i = 0; i < a.size(); i++) {
+                                    if (i < a.size() - 1)
+                                        fout << a[i].id << " " << a[i].product << " " << a[i].price << " " << endl;
+                                    else
+                                        fout << a[i].id << " " << a[i].product << " " << a[i].price;
+                                }
+                                fout.close();
+                                a.clear();
+                            }
+                        } else if (command1 == "0")break;
                     }
                 }
             } else if (command == "pass"){
