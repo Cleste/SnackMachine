@@ -141,34 +141,27 @@ int main() {
                         k++;
                     }
                     fin.close();
-                    fout.open(want);
                     while (true) {
-                        system("clear");
                         for (int i = 0; i < a.size(); i++) {
                             cout << a[i].id << " " << a[i].product << " " << a[i].price << endl;
                         }
-                        cout
-                                << "Введите id продукта, который хотите изменить, или 0 для возврата к выбору меню"
-                                << endl;
+                        cout << "Введите id продукта, который хотите изменить, или 0 для возврата к выбору меню" << endl;
                         cin >> l;
                         if (l == 0) {
+                            fout.open(want);
                             for (int i = 0; i < a.size(); i++) {
                                 if (i < a.size() - 1)
                                     fout << a[i].id << " " << a[i].product << " " << a[i].price << " " << endl;
                                 else
                                     fout << a[i].id << " " << a[i].product << " " << a[i].price;
                             }
+                            fout.close();
                             break;
                         }
-                        for (int i = 0; i < a.size(); i++) {
-                            if (a[i].id == l) {
-                                cout << "Введите назание продукта: " << endl;
-                                cin >> a[i].product;
-                                cout << "Введите цену продукта: " << endl;
-                                cin >> a[i].price;
-                            }
-                        }
-                        break;
+                        cout << "Введите назание продукта: " << endl;
+                        cin >> a[l-1].product;
+                        cout << "Введите цену продукта: " << endl;
+                        cin >> a[l-1].price;
                     }
                 }
             } else if (command == "passC"){
@@ -191,7 +184,7 @@ int main() {
                 cin >> password;
                 fout.open("/home/kirill/CLionProjects/SnackMachine/password.txt");
                 fout << password;
-            }
+            }else cout << "Не верная команда" << endl;
         }
     }
     else cout << "Вы ввели отрицательное число. LOL" << endl;
