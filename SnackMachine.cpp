@@ -103,7 +103,7 @@ int main() {
         }
         fin.close();
         while(true) {
-            cout << "Что вы желаете?" << endl;
+            cout << "Что вы желаете изменить?" << endl;
             cout << "Напитки" << endl << "Еда" << endl;
             if (cin >> filePath != "Напитки" && filePath != "Еда") {
                 cout << filePath << " нет в списке. Попробуйте еще раз." << endl;
@@ -116,7 +116,8 @@ int main() {
             a.push_back(item);
             k++;
         }
-        fout.open(filePath);
+        fin.close();
+        fout.open(want);
         while (true) {
             system("cls");
             for (int i = 0; i < a.size(); i++) {
