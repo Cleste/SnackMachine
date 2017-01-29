@@ -10,16 +10,16 @@ struct snack
     int id, price;
     string product;
 };
+string filePath, want;
+ifstream fin;
+ofstream fout;
+vector<snack> a;
+vector<snack> v;
+int budget, k = 0, what, l;
+snack item;
 
 int main() {
     setlocale(LC_ALL, "Russian");
-    string filePath, want;
-    ifstream fin;
-    ofstream fout;
-    vector<snack> a;
-    vector<snack> v;
-    int budget, k = 0, what, l;
-    snack item;
     cout << "Сколько у вас лаве?" << endl;
     cin >> budget;
     if (budget > 0) {
@@ -31,7 +31,7 @@ int main() {
                 cout << "1.Попить" << endl << "2.Похавать" << endl;
                 cin >> filePath;
                 if (filePath != "1" && filePath != "2" && filePath != "0") {
-                    cout << filePath << " нет в списке. Попробуйте еще раз." << endl;
+                    cout << "Ах ты хитрец." << filePath << " нет в списке. Попробуй еще раз." << endl;
                 } else break;
             }
             if (filePath == "0") {
@@ -126,7 +126,7 @@ int main() {
                         cout << "1.Напитки" << endl << "2.Еда" << endl;
                         cin >> filePath;
                         if (filePath != "1" && filePath != "2" && filePath != "0") {
-                            cout << filePath << " нет в списке. Попробуйте еще раз." << endl;
+                            cout << "Ах ты хитрец." << filePath << " нет в списке. Попробуйте еще раз." << endl;
                         } else break;
                     }
                     if (filePath == "1")
@@ -164,7 +164,7 @@ int main() {
                         cin >> a[l-1].price;
                     }
                 }
-            } else if (command == "passC"){
+            } else if (command == "pass"){
                 for (int i = 3; i >= -1; i--) {
                     system("clear");
                     if (i == -1) {
@@ -184,7 +184,7 @@ int main() {
                 cin >> password;
                 fout.open("/home/kirill/CLionProjects/SnackMachine/password.txt");
                 fout << password;
-            }else cout << "Не верная команда" << endl;
+            }else if (command != "0")cout << "Не верная команда" << endl;
         }
     }
     else cout << "Вы ввели отрицательное число. LOL" << endl;
