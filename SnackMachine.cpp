@@ -26,7 +26,7 @@ int main() {
     if (budget > 0) {
         while (true) {
             while (true) {
-                system("clear");
+                system("cls");
                 a.clear();
                 cout << "Что вы желаете? Введите 0 для завершения покупок." << endl;
                 cout << "1.Попить" << endl << "2.Похавать" << endl;
@@ -37,7 +37,7 @@ int main() {
             }
             if (filePath == "0") {
                 if (v.size() > 0) {
-                    system("clear");
+                    system("cls");
                     cout << "Ваша сдача: " << budget << endl << "Список покупок:" << endl;
                     for (int i = 0; i < v.size(); i++) {
                         cout << i + 1 << ")" << v[i].product << " " << v[i].price << endl;
@@ -51,9 +51,9 @@ int main() {
                 }
             }
             if (filePath == "1")
-                want = "/home/kirill/CLionProjects/SnackMachine/Напитки.txt";
+                want = "Напитки.txt";
             if (filePath == "2")
-                want = "/home/kirill/CLionProjects/SnackMachine/Еда.txt";
+                want = "Еда.txt";
             fin.open(want);
             while (!fin.eof()) {
                 fin >> item.id >> item.product >> item.price;
@@ -62,7 +62,7 @@ int main() {
             }
             fin.close();
             while (true) {
-                system("clear");
+                system("cls");
                 for (int i = 0; i < a.size(); i++) {
                     cout << a[i].id << " " << a[i].product << " " << a[i].price << endl;
                 }
@@ -79,7 +79,7 @@ int main() {
                     for (int i = 0; i < k; i++) {
                         if (a[i].id == what) {
                             if (budget - a[i].price < 0) {
-                                system("clear");
+                                system("cls");
                                 cout << "Опа. Недостаочно лаве" << endl;
                                 cin.get();
                             } else {
@@ -93,11 +93,11 @@ int main() {
             }
         }
     } else if (budget == -1){
-        fin.open("/home/kirill/CLionProjects/SnackMachine/password.txt");
+        fin.open("password.txt");
         string pass, password;
         fin >> pass;
         for (int i = 3; i >= -1; i--) {
-            system("clear");
+            system("cls");
             if (i == -1) {
                 cout << "Неверный пароль." << endl;
                 cout << "Лимит ввода пароля превышен - самоуничтожение программы." << endl;
@@ -115,13 +115,13 @@ int main() {
         fin.close();
         string command, command1;
         while (command != "0") {
-            system("clear");
+            system("cls");
             cout << "Введите команду. Введите 0 для завершения программы." << endl;
             cin >> command;
             if (command == "menu") {
                 while (true) {
                     while (true) {
-                        system("clear");
+                        system("cls");
                         cout << "Какое меню вы хотите поменять? Введите 0 для возврата к вводу команд." << endl;
                         cout << "1.Напитки" << endl << "2.Еда" << endl;
                         cin >> filePath;
@@ -130,9 +130,9 @@ int main() {
                         } else break;
                     }
                     if (filePath == "1")
-                        want = "/home/kirill/CLionProjects/SnackMachine/Напитки.txt";
+                        want = "Напитки.txt";
                      else if (filePath == "2")
-                        want = "/home/kirill/CLionProjects/SnackMachine/Еда.txt";
+                        want = "Еда.txt";
                     else break;
                     while (true) {
                         cout << "Что вы хотите сделать? Введите 0 для возврата к выбору меню." << endl;
@@ -154,21 +154,23 @@ int main() {
                                 cout << "Введите id продукта, который хотите изменить, или 0 для возврата к выбору меню"
                                      << endl;
                                 cin >> l;
-                                if (l == 0) {
-                                    fout.open(want);
-                                    for (int i = 0; i < a.size(); i++) {
-                                        if (i < a.size() - 1)
-                                            fout << a[i].id << " " << a[i].product << " " << a[i].price << " " << endl;
-                                        else
-                                            fout << a[i].id << " " << a[i].product << " " << a[i].price;
-                                    }
-                                    fout.close();
-                                    break;
-                                }
+                                if (l == 0) break;
+                                string m;
+                                int f;
                                 cout << "Введите назание продукта: " << endl;
-                                cin >> a[l - 1].product;
+                                cin >> m;
+                                a[l - 1].product = m;
                                 cout << "Введите цену продукта: " << endl;
-                                cin >> a[l - 1].price;
+                                cin >> f;
+                                a[l - 1].price = f;
+                                fout.open(want);
+                                for (int i = 0; i < a.size(); i++) {
+                                    if (i < a.size() - 1)
+                                        fout << a[i].id << " " << a[i].product << " " << a[i].price << " " << endl;
+                                    else
+                                        fout << a[i].id << " " << a[i].product << " " << a[i].price;
+                                }
+                                fout.close();
                             }
                         } else if (command1 == "2"){
                             while (true){
@@ -186,7 +188,7 @@ int main() {
                                 if (name == "0") break;
                                 cout << "Введите цену нового товара" << endl;
                                 cin >> price;
-                                item.id = a.size() + 2;
+                                item.id = a.size() + 1;
                                 item.price = price;
                                 item.product = name;
                                 a.push_back(item);
@@ -205,7 +207,7 @@ int main() {
                 }
             } else if (command == "pass"){
                 for (int i = 3; i >= -1; i--) {
-                    system("clear");
+                    system("cls");
                     if (i == -1) {
                         cout << "Неверный пароль." << endl;
                         cout << "Лимит ввода пароля превышен - самоуничтожение программы." << endl;
@@ -221,7 +223,7 @@ int main() {
                 }
                 cout << "Введите новый пароль :" << endl;
                 cin >> password;
-                fout.open("/home/kirill/CLionProjects/SnackMachine/password.txt");
+                fout.open("password.txt");
                 fout << password;
             }else if (command != "0")cout << "Не верная команда" << endl;
         }
